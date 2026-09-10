@@ -153,15 +153,7 @@ iframe.gaz{width:100%;height:1180px;border:1px solid var(--paper-edge);backgroun
 </style></head>
 <body>
 
-<div class="door" id="door">
-  <h1>Il Pellicano</h1>
-  <div class="kn">bussa ed entra, se conosci la parola</div>
-  <input id="pw" type="text" placeholder="sussurra la parola d'ordine" autocomplete="off">
-  <button id="enter">Entra</button>
-  <div class="msg" id="doormsg"></div>
-</div>
-
-<div id="app" style="display:none">
+<div id="app">
   <div class="porthead">
     <h2>Benvenuto al Pellicano</h2>
     <p>Sotto trovi il materiale comune a tutti, la Gazzetta di oggi, e il tuo dossier privato. <b>Leggi solo il tuo:</b> il resto rovinerebbe la sorpresa.</p>
@@ -545,14 +537,6 @@ iframe.gaz{width:100%;height:1180px;border:1px solid var(--paper-edge);backgroun
 <script>
 (function(){
   const norm=s=>s.toLowerCase().trim().replace(/\s+/g,' ');
-  const door=document.getElementById('door'),app=document.getElementById('app');
-  function tryEnter(){
-    if(norm(document.getElementById('pw').value)==="il pellicano vola basso"){
-      door.style.display='none';app.style.display='block';
-    } else { document.getElementById('doormsg').textContent='Non è quella. Riprova.'; }
-  }
-  document.getElementById('enter').onclick=tryEnter;
-  document.getElementById('pw').addEventListener('keydown',e=>{if(e.key==='Enter')tryEnter();});
 
   function reveal(){
     const c=norm(document.getElementById('code').value);
