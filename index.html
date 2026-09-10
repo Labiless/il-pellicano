@@ -122,7 +122,7 @@
     .cover h1{font-size:3rem} .sheet{padding:30px 22px 34px} .prop{flex:1 1 100%}
   }
   @media print{
-    body{background:#fff} .wrap{max-width:none; padding:0} .lead, .foot, .noprint{display:none!important}
+    body{background:#fff} .wrap{max-width:none; padding:0} .lead, .foot, .noprint, .gazwrap{display:none!important}
     .sheet{box-shadow:none; border:none; margin:0; max-width:none; break-after:page; padding:14mm 14mm 12mm}
     .sheet::before{inset:6mm} .sheet::after{inset:8mm}
     .card, .token, .tl li, .check li, .obj, .act, .cast li, .steps li, .call{break-inside:avoid}
@@ -148,55 +148,94 @@
 .codebox input{background:#fffaea;color:var(--ink);border-color:var(--gold)}
 .codebox button{background:var(--wine);color:#f1e8d1}
 .dossier[hidden]{display:none}
-.gazwrap{max-width:820px;margin:0 auto 30px}
-iframe.gaz{width:100%;height:1180px;border:1px solid var(--paper-edge);background:#efe7d4;box-shadow:0 22px 50px -20px #000a}
+.dossier strong{font-weight:500;color:var(--wine)}
+.gazwrap{max-width:960px;margin:0 auto 30px}
+.gazbar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.gazbar button[hidden]{display:none}
+#gazslot{margin-top:16px}
+iframe.gaz{width:100%;height:640px;border:0;background:#20372b;display:block;box-shadow:0 22px 50px -20px #000a}
+
+.invite{position:fixed;inset:0;z-index:200;overflow:auto;
+  background:radial-gradient(120% 80% at 50% -10%, #17493690 0%, transparent 60%),
+    repeating-linear-gradient(0deg,#0b241a,#0b241a 2px,#0c271c 2px,#0c271c 4px),var(--green-deep);
+  display:flex;align-items:center;justify-content:center;padding:34px 16px}
+.invite[hidden]{display:none}
+.invite-card{position:relative;max-width:520px;width:100%;
+  background:radial-gradient(140% 120% at 50% 0%,#fbf4de 0%,var(--paper) 55%,var(--paper-2) 100%);
+  color:var(--ink);border:1px solid var(--paper-edge);
+  box-shadow:0 22px 50px -20px #000a,0 2px 0 #ffffff30 inset;padding:46px 40px 40px;text-align:center}
+.invite-card::before{content:"";position:absolute;inset:12px;border:2px solid var(--gold);pointer-events:none}
+.invite-card::after{content:"";position:absolute;inset:17px;border:1px solid #b8912f66;pointer-events:none}
+.invite-card .ic{position:relative;z-index:1}
+.invite .bird{font-family:var(--disp);font-size:2rem;color:var(--wine);line-height:1}
+.invite .eyebrow{font-family:var(--disp);text-transform:uppercase;letter-spacing:.22em;font-size:.68rem;color:var(--wine);margin-top:10px}
+.invite h1{font-family:var(--disp);font-weight:700;font-size:3.2rem;color:var(--green-deep);letter-spacing:.04em;margin:6px 0 2px;line-height:1}
+.invite .sub{font-family:var(--disp);font-style:italic;font-size:1.15rem;color:var(--wine)}
+.invite hr.gold{height:0;border:0;border-top:1px solid var(--gold);margin:20px 0;box-shadow:0 3px 0 -2px var(--gold)}
+.inv-details{margin:0;text-align:left;display:grid;gap:13px}
+.inv-details dt{font-family:var(--disp);text-transform:uppercase;letter-spacing:.18em;font-size:.66rem;color:var(--wine);margin-bottom:2px}
+.inv-details dd{margin:0;font-size:1.04rem;color:var(--ink)}
+.inv-details dd .m{color:#5b5344;font-style:italic;font-size:.9rem}
+.inv-note{color:#5b5344;font-size:.92rem;margin:0 0 18px}
+.invite button{font-family:var(--type);font-size:.82rem;letter-spacing:.1em;cursor:pointer;background:var(--wine);color:#f1e8d1;border:none;padding:13px 26px}
+.inv-foot{font-family:var(--disp);font-style:italic;color:var(--wine);font-size:.82rem;margin-top:16px}
+@media (max-width:640px){.invite h1{font-size:2.5rem}.invite-card{padding:34px 22px 30px}}
+@media print{.invite{display:none!important}}
 </style></head>
 <body>
+
+<div class="invite" id="invite">
+  <div class="invite-card"><div class="ic">
+    <div class="bird">&#10087;</div>
+    <div class="eyebrow">Sei convocato &middot; Loggia permettendo</div>
+    <h1>Il Pellicano</h1>
+    <div class="sub">Speakeasy clandestino &middot; una serata da salvare</div>
+    <hr class="gold">
+    <dl class="inv-details">
+      <div><dt>Quando</dt><dd>Sabato &middot; porte aperte dalle <strong>19:30</strong></dd></div>
+      <div><dt>Dove</dt><dd><strong>Lombokstraat 92</strong>, Utrecht<br><span class="m">bussa &mdash; e sappi la parola</span></dd></div>
+      <div><dt>Cosa</dt><dd>Cena-gioco a personaggi. Utrecht, 1927: Proibizionismo, sospetti fra soci, e un locale da non far chiudere prima di mezzanotte.</dd></div>
+    </dl>
+    <hr class="gold">
+    <p class="inv-note">Qui dentro c'&egrave; tutto per arrivare pronto: la storia, i soci del Pellicano, la Gazzetta di quel giorno e il tuo dossier segreto.</p>
+    <button id="inviteEnter">Apri il portale dei soci</button>
+    <div class="inv-foot">A mezzanotte arriva l'Ispettore. Non fare tardi.</div>
+  </div></div>
+</div>
 
 <div id="app">
   <div class="porthead">
     <h2>Benvenuto al Pellicano</h2>
-    <p>Sotto trovi il materiale comune a tutti, la Gazzetta di oggi, e il tuo dossier privato. <b>Leggi solo il tuo:</b> il resto rovinerebbe la sorpresa.</p>
+    <p>Qua trovi tutto ciò che ti serve per arrivare preparato alla serata! Le istruzioni, chi sono i soci del Pellicano, la Gazzetta di oggi (12 settembre), e il tuo dossier privato.
   </div>
   <div class="wrap">
     <section class="sheet"><div class="inner">
-    <div class="page-title"><h2>Come funziona la serata</h2><span class="num">leggilo · vale per tutti</span></div>
+    <div class="page-title"><h2>Come funziona la serata</h2><span class="num"></span></div>
     <hr class="rule">
-    <p>Sei un socio del <strong>Pellicano</strong>, uno speakeasy clandestino nella Utrecht del 1927. La <strong>Loggia del Decoro</strong> sta facendo chiudere ogni locale della città, e stanotte tocca a noi: a mezzanotte arriva il loro Ispettore a decidere la nostra sorte. Il gioco è salvare il Pellicano, <strong>tutti insieme</strong>, o non si salva nessuno.</p>
-    <p><strong>Il tuo animale.</strong> Ogni socio ha un animale e un <strong>gettone</strong> con sopra il suo uccello: è la tua tessera. Tienila con te tutta la sera.</p>
-    <div class="entry"><span class="k">PER ENTRARE, dalla porta, mostra il gettone e di':</span>
-      «Il pellicano vola basso… e [il tuo animale] entra nel locale!»<br>
-      <span style="opacity:.7">(la frase esatta è nel tuo dossier · senza gettone, non si entra)</span></div>
-
-    <h3 style="color:var(--green-deep); font-size:1.5rem; margin-top:4px">Il contesto</h3>
-    <p>Utrecht, 1927. La <strong>Loggia del Decoro</strong> ha convinto il Municipio a chiudere ogni locale dove scorra alcol o giri una sostanza, e i locali spariscono uno a uno. C'è una sola eccezione nella legge: gli <strong>alcolici a scopo medicinale</strong>, registrati come rimedi, sono esentati. Il Pellicano, invece, è tutto ciò che la Loggia odia: fiumi di cocktail, un salottino dove ci si perde, e un mobiletto di "medicine" ricreative per chi vuole esagerare. Stanotte tocca a noi: a <strong>mezzanotte</strong> arriva il loro <strong>Ispettore</strong> a decidere se sbarrarci per sempre.</p>
-    <p>La Loggia però ha un'arma più subdola della polizia: la <strong>diffidenza</strong>. Ha fatto girare la voce che uno di noi soci sia una loro <strong>spia</strong>, pronta a fare i nostri nomi. È una trappola: non serve una vera spia, basta che smettiamo di fidarci e ci sbraniamo da soli. Per gran parte della serata sospetteremo l'uno dell'altro, ma la spia non esiste.</p>
-    <p>C'è un solo modo per uscirne intatti: convincere l'Ispettore che qui si vende soltanto <em>medicina</em>. Cioè presentargli l'<strong>Elisir del Pellicano</strong>, un rimedio "registrato" (in verità il cocktail della casa). Ma la ricetta è divisa tra noi otto, ognuno custodisce un pezzo, il suo animale, e vale solo se la compiamo e la recitiamo <strong>tutti insieme, nell'ordine giusto</strong>. Quindi: nascondere il proibito, smettere di sospettarci, unirci e comporre l'Elisir prima di mezzanotte. Questo è il gioco.</p>
+    <p>Sei un socio del <strong>Pellicano</strong>, uno speakeasy clandestino nella Utrecht del 1927. La <strong>Loggia del Decoro</strong> sta facendo chiudere ogni locale della città, e stanotte tocca a noi: a mezzanotte arriva il loro Ispettore a decidere la nostra sorte. Urge salvare il Pellicano, <strong>tutti insieme</strong>, o non si salva nessuno.</p>
+    <p>Utrecht, 1927. La <strong>Loggia del Decoro</strong> ha convinto il Municipio a chiudere ogni locale dove scorra alcol o giri una sostanza, e i locali spariscono uno a uno. C'è una sola eccezione nella legge: gli <strong>alcolici a scopo medicinale</strong>, registrati come rimedi, sono esentati. Il Pellicano, invece, è tutto ciò che la Loggia odia: fiumi di cocktail, un salottino dove ci si perde, e una valigetta di "medicine" ricreative per chi vuole esagerare. Stanotte tocca a noi: è stata preannunciata una visita del loro <strong>Ispettore</strong> a decidere se sbarrarci per sempre.</p>
+    <p>Voci girano che la Loggia abbia un'arma più subdola della polizia: la <strong>diffidenza</strong>. Ha fatto infiltrare tra i soci una <strong>spia</strong>, pronta a fare i nostri nomi all'ispettore.
+    <p>C'è un solo modo per uscirne intatti: al suo arrivo, dobbiamo convincere l'Ispettore che qui si vende soltanto <em>medicina</em>. Cioè presentargli l'<strong>Elisir del Pellicano</strong>, un rimedio "registrato" e nascondere tutto ciò che potrebbe incastrarci.
 
     <h3 style="color:var(--green-deep); font-size:1.5rem; margin-top:4px">La serata in cinque punti</h3>
     <ol class="steps">
       <li><b>Resti nel personaggio.</b> Parli, spettegoli, tratti come lui/lei. Nessuno muore: c'è un locale da salvare.</li>
-      <li><b>La Signora ti guida, e il telefono scandisce il tempo.</b> Ogni tanto squilla un vecchio telefono: chi risponde ascolta il messaggio e lo riferisce a tutti. Sono le svolte della storia.</li>
-      <li><b>Fai quello che dice il tuo dossier</b>, Atto per Atto. Cose semplici e concrete, scritte in chiaro.</li>
-      <li><b>Tre Atti</b> (vedi sotto). Non devi sapere tutto in anticipo.</li>
-      <li><b>Si vince insieme</b>, prima di mezzanotte.</li>
-    </ol>
-    <div class="acts">
-      <div class="act"><div class="ah">Atto I · 20:00</div><h3>I soci</h3><p>Ci si conosce e ci si diverte: ognuno ha una piccola missione. Poi il telefono squilla.</p></div>
-      <div class="act"><div class="ah">Atto II · 21:30</div><h3>Il sospetto</h3><p>Si dice che tra noi ci sia una spia della Loggia. Ognuno ha un buon motivo per essere sospettato. Sospetti, accuse, un colpo di scena.</p></div>
-      <div class="act"><div class="ah">Atto III · 22:45</div><h3>La salvezza</h3><p>Si scopre l'unico modo per salvarsi. Bisogna metterci tutti del proprio, prima di mezzanotte.</p></div>
-    </div>
+      <li><b>La Signora ti guida, e il telefono scandisce il tempo.</b> Ogni tanto squilla un vecchio telefono: chi risponde ascolta il messaggio e lo riferisce a tutti.</li>
+      <li><b>Fai quello che dice il tuo dossier</b>, Atto per Atto.</li>
+      <li><b>Tre Atti</b>. Non devi sapere tutto in anticipo.</li>
+      <li><b>All'arrivo dell'Ispettore, si vince o si perde tutti insieme.
+    </ol> 
+
     <dl class="glossy">
-      <dt>L'Elisir del Pellicano</dt><dd>Un cocktail "medicinale". Presentarlo all'Ispettore dimostra che siamo un'attività del tutto in regola e salva il locale. Va preparato con un rituale, <strong>nell'ordine giusto</strong>: come, lo scoprite stanotte.</dd>
-      <dt>Il gettone / il tuo animale</dt><dd>La tua tessera: la mostri alla porta per entrare. Tienila con te, servirà anche più avanti.</dd>
-      <dt>La Signora</dt><dd>La padrona di casa (Nikita) e la vostra guida.</dd>
+      <dt>L'Elisir del Pellicano</dt><dd>
+        Preparare l'elisr è il vostro obiettivo. Presentarlo all'Ispettore dimostra che siamo un'attività del tutto in regola e salva il locale. Va preparato con un rituale.
     </dl>
     <p class="foot">Da consegnare a tutti gli ospiti</p>
   </div></section>
     <section class="sheet"><div class="inner">
     <div class="page-title"><h2>I soci del Pellicano</h2><span class="num">per tutti</span></div>
     <hr class="rule">
-    <p class="muted">I volti che incrocerai stanotte. Chi sono davvero, e che animale portano, lo scopri parlandoci. Tutti hanno qualcosa da nascondere.</p>
+    <p class="muted">Tutti hanno qualcosa da nascondere.</p>
     <ul class="cast">
       <li><b>La Signora</b> <span class="who">(Nikita)</span><br>Padrona di casa e regina del bancone. Ha preso il locale anni fa da un benefattore mai nominato, e lo difende come una leonessa. Calda, teatrale, generosa di alcol e di sguardi: conosce e coltiva il vizio di ognuno. Al Pellicano si viene per perdere la testa, e lei è felice di aiutarti.</li>
       <li><b>L'Ingegnere &amp; DJ</b> <span class="who">(Miele)</span><br>Il genio silenzioso dietro luci, suono e musica: fa ballare la sala coi suoi set fino all'alba. È l'unico posto in città che lo lascia suonare la sua roba strana, e lo protegge come una tana.</li>
@@ -207,26 +246,30 @@ iframe.gaz{width:100%;height:1180px;border:1px solid var(--paper-edge);backgroun
       <li><b>Il Produttore</b> <span class="who">(Max)</span><br>Produttore musicale di passaggio, arrivato da poco con un sorriso facile e mille storie. Simpatico, generoso al bancone, un filo vago sul suo passato, ma chi non lo è, qua dentro?</li>
       <li><b>La Cantante</b> <span class="who">(Sorcha)</span><br>La voce e l'anima del locale: quando sale sul palco, la sala ammutolisce. Teatrale, calda, un po' misteriosa. È lei a tenere in piedi la festa quando le cose si fanno pesanti.</li>
     </ul>
-    <div class="callout host"><span class="lab">e a mezzanotte…</span> <strong>L'Ispettore</strong> della Loggia: il nome che fa chiudere ogni locale dove scorra un goccio d'alcol o giri una sostanza. Chi sia, nessuno lo sa. L'unico modo per uscirne intatti è convincerlo che qui si vende soltanto medicina: presentargli l'<strong>Elisir del Pellicano</strong>. Nessuno lo aspetta con piacere.</div>
+    <div class="callout host"><span class="lab"></span> <strong>L'Ispettore</strong> della Loggia: il nome che fa chiudere ogni locale dove scorra un goccio d'alcol o giri una sostanza. Chi sia, nessuno lo sa. L'unico modo per uscirne intatti è convincerlo che qui si vende soltanto medicina: presentargli l'<strong>Elisir del Pellicano</strong>. Nessuno lo aspetta con piacere.</div>
     <p class="foot">Da consegnare a tutti gli ospiti</p>
   </div></section>
     <div class="gazwrap">
       <div class="codebox" style="padding:22px">
-        <h3>La Gazzetta di oggi</h3>
-        <p>Il giornale della città. Leggilo: dice chi incontrerai e cosa succede a Utrecht.</p>
-        <button class="gazbtn" id="gazbtn">Apri la Gazzetta</button>
+        <h3>La Gazzetta di quel giorno</h3>
+        <p>«De Utrechtsche Bode» del 12 settembre 1927: due pagine in formato A4. Dice chi incontrerai e cosa sta succedendo a Utrecht. Sfogliala qui, oppure aprila a tutta pagina per stamparla.</p>
+        <div class="gazbar">
+          <button class="gazbtn" id="gazbtn">Apri la Gazzetta</button>
+          <button class="gazbtn" id="gazfull" hidden>&#8599; Tutta pagina / Stampa</button>
+        </div>
         <div id="gazslot"></div>
       </div>
     </div>
     <div class="codebox">
       <h3>Il tuo dossier</h3>
-      <p>Inserisci il <b>codice personale</b> che ti ho mandato (è un cocktail). Comparirà solo il tuo personaggio.</p>
+      <p>Inserisci il <b>codice personale</b> che ti ho mandato. Comparirà solo il tuo personaggio.</p>
       <input id="code" type="text" placeholder="il tuo codice" autocomplete="off">
       <button id="reveal">Apri il dossier</button>
       <div class="msg" id="codemsg"></div>
     </div>
     <div id="dossiers">
-<div class="dossier" data-code="sidecar" hidden><section class="sheet card"><div class="inner">
+<div class="dossier" data-code="sidecar" hidden><section class="sheet card"><div class="inner
+  ">
     <div class="charhead"><div><h2>Nikita</h2><div class="role">La Signora del Pellicano · host e guida</div></div>
       <div class="tag"><div class="b">Pellicano</div><div class="n">TESSERA I</div></div></div>
     <hr class="rule">
@@ -234,26 +277,26 @@ iframe.gaz{width:100%;height:1180px;border:1px solid var(--paper-edge);backgroun
     <p>Anni fa hai preso in mano il Pellicano da un misterioso benefattore, e da allora è tutta la tua vita. Sei calda, teatrale, un filo despota: conduci la sala come un domatore, chiami tutti "tesoro", ridi forte, ma i tuoi occhi non perdono un colpo. Stanotte terrai insieme la tua gente a qualunque costo. <em>Parli così:</em> generosa, spavalda, comandi con un sorriso.</p>
     <div class="tic">Tic: tocchi l'orlo di ogni bicchiere prima di servirlo, come una piccola benedizione.</div>
     <div class="callout host"><span class="lab">Tu sei anche la regista</span> Guidi tu la serata: fai squillare il telefono ai momenti giusti (le telefonate sono nella tua Regia) e passi a Max la sua busta. Ma <strong>non fai tu le cose</strong>, sono gli altri a doversi muovere e a comporre l'Elisir. Tu presidi, versi da bere e tieni il ritmo. Ognuno sa già cosa fare.</div>
-    <div class="hold"><span class="lab">Segreti tuoi</span> Lorenzo ha perso il suo gettone e <strong>ce l'hai tu</strong> (l'hai raccolto da terra): non dirglielo, fatti corteggiare e poi "trovaglielo". Hai la carta <strong>Amnistia</strong> (due colpi sul bancone) per sbloccare la serata. E conosci l'identità dell'Ispettore… ma quella la tieni per te (vedi la busta segreta).</div>
+    <div class="callout host"><span class="lab">Alla porta</span> Sei tu che accogli gli ospiti: quando dicono la frase giusta li fai entrare e <strong>consegni a ciascuno il suo gettone</strong> con l'animale. Tienili pronti in un vassoio.</div>
+    <div class="hold"><span class="lab">Segreti tuoi</span> A un certo punto Lorenzo verrà da te disperato: Serena gli ha chiesto in prestito l'Oca e non gliela ridà. Puoi dargli una mano a recuperarla (fatti pregare, o minaccia Serena di toglierle il bancone). Hai la carta <strong>Amnistia</strong> (due colpi sul bancone) per sbloccare la serata. E conosci l'identità dell'Ispettore… ma quella la tieni per te (vedi la busta segreta).</div>
     <div class="props"><div class="prop"><b>Porti</b> shaker + accendino.</div><div class="prop"><b>Indossi</b> guanti lunghi, fiore rosso.</div></div>
     <p class="foot">Dossier · NIKITA (la Signora)</p>
   </div></section></div>
 
 <div class="dossier" data-code="martini" hidden><section class="sheet card"><div class="inner">
     <div class="charhead"><div><h2>Miele</h2><div class="role">L'Ingegnere &amp; DJ · il suono del locale</div></div>
-      <div class="tag"><div class="b">Gru</div><div class="n">TESSERA VIII</div></div></div>
+      <div class="tag"><div class="b">Gru</div><div class="n"></div></div></div>
     <hr class="rule">
     <div class="lab">Chi sei</div>
     <p>Hai costruito l'anima del Pellicano con le tue mani: luci, impianto, l'Insegna. E ne sei il <strong>DJ</strong>: suoni i tuoi set elettronici qui ogni settimana, dalla tua cabina. È l'unico posto in città che ti lascia fare la tua musica strana, e per questo lo ami. Parli poco e pensi per macchine. <em>Parli così:</em> asciutto, ironico, preciso.</p>
     <div class="tic">Tic: batti un ritmo con le dita su qualsiasi cosa, cuffie sempre al collo.</div>
-    <div class="entry"><span class="k">Alla porta di':</span>«Il pellicano vola basso… e la Gru elettrica entra nel locale!» (mostra il gettone-Gru)</div>
+    <div class="entry"><span class="k">Alla porta di':</span>«Il pellicano vola basso… e la Gru elettrica entra nel locale!» (poi entra: il gettone-Gru te lo consegnano dentro)</div>
     <div class="callout tech"><span class="lab">Il tuo lavoro: la musica e gli "effetti"</span>
-      Metti musica tutta la sera (sei il DJ). E in due momenti, al cenno della Signora, fai gli effetti:<br>
-      • <strong>La Retata:</strong> luce <strong>rossa</strong> + un fischietto per 30 secondi. È una finta irruzione: tutti fingono di nascondere i bicchieri. Fa spavento e fa ridere.<br>
-      • <strong>La Mezzanotte:</strong> buio totale, così l'Ispettore entra a sorpresa. Sei anche tu che fai partire le telefonate registrate, se volete.</div>
-    <div class="obj"><span class="a">Atto I, la tua gag</span> Fatti dare da ognuno una "richiesta musicale" (scrivila su un bigliettino) e costruisci la colonna sonora della notte.</div>
-    <div class="obj"><span class="a">Atto III</span> All'ultimo avviso (lo Squillo 4), fai il <strong>buio della mezzanotte</strong> per far entrare l'Ispettore a sorpresa. Per il resto della notte, sei il DJ: fai ballare la sala.</div>
-    <div class="duo">
+      Metti musica tutta la sera (sei il DJ). E fai partire le telefonate quando te lo dice la signora. in tutto, avrai 4 telefonate da far partire.<br>
+    <div class="obj"><span class="a">Atto I, la tua gag</span> Fatti dare da ognuno una "richiesta musicale" (scrivila su un bigliettino) e costruisci la colonna sonora della notte. 
+    fai partire la telefonata n1 quando la signora te lo dice</div>
+    <div class="obj"><span class="a">Atto II, a Retata:</strong> luce <strong>rossa</strong> + un fischietto per 30 secondi. Subito dopo la seconda telefonata fai partire una sirena di allarme, tutti dovranno nascondere l'alcol e le droghe perchè sta arrivado la loggia!!! fai durare luci spente e sirene per 40 SECONDI e poi fai partire la TERZA TELEFONATA che da il. via al 2° atto
+    <div class="obj"><span class="a">Atto III</span> Fai partire l'ultima telefonata quando te lo dice la Signora e fai buio pesto quando l'Ispettore sta per arrivare (te lo dice la signora).
       <div class="good"><span class="h">Perché tieni al Pellicano</span> È il tuo palco: nessun altro posto ti lascia suonare così.</div>
       <div class="bad"><span class="h">Perché ti sospettano</span> Stai sempre in cabina a guardare tutti e comandi le luci: potresti fare segnali a chiunque.</div>
     </div>
@@ -264,122 +307,121 @@ iframe.gaz{width:100%;height:1180px;border:1px solid var(--paper-edge);backgroun
 
 <div class="dossier" data-code="negroni" hidden><section class="sheet card"><div class="inner">
     <div class="charhead"><div><h2>Joe</h2><div class="role">La Cronista</div></div>
-      <div class="tag"><div class="b">Ibis</div><div class="n">TESSERA IV</div></div></div>
+      <div class="tag"><div class="b">Ibis</div><div class="n"></div></div></div>
     <hr class="rule">
     <div class="lab">Chi sei</div>
-    <p>Josephine, giornalista italoamericana di Milano, rapida e affilata. Eri venuta a Utrecht per scrivere un'inchiesta che avrebbe fatto chiudere i locali clandestini, poi ti sei innamorata di questo mondo, e ora sei divisa tra lo scoop della carriera e il proteggere la gente del Pellicano. <em>Parli così:</em> veloce, ironica, sempre a caccia.</p>
-    <div class="tic">Tic: ti bagni la matita e ripeti l'ultima parola dell'altro come una domanda. «…a mezzanotte?»</div>
-    <div class="entry"><span class="k">Alla porta di':</span>«Il pellicano vola basso… e l'Ibis indiscreta entra nel locale!» (mostra il gettone-Ibis)</div>
-    <div class="obj"><span class="a">Atto I, la tua gag</span> Intervista tutti e scrivi sul taccuino <strong>un segreto (anche inventato) per ciascun ospite</strong>. Incalza, fatti raccontare qualcosa di piccante su ognuno.</div>
-    <div class="obj"><span class="a">Atto II, l'indagine</span> Col taccuino pieno di segreti, dai la caccia alla spia: <strong>tu sospetti Max</strong>. Hai la carta <strong>«La Verità»</strong> (un solo uso): obbliga qualcuno a risponderti sincero a UNA domanda. Chiedi a Max: «Chi ti manda?».</div>
-    <div class="obj"><span class="a">Atto III</span> Quando si scopre che la spia era una trappola della Loggia, strappa i tuoi appunti al bancone in segno di fiducia e porta lì il gettone.</div>
+    <p>Josephine, giornalista rapida e affilata. Eri venuta a Utrecht per scrivere un'inchiesta che avrebbe fatto chiudere i locali clandestini, poi ti sei innamorata di questo mondo, e ora sei divisa tra lo scoop della carriera e il proteggere la gente del Pellicano. <em>Parli così:</em> veloce, ironica, sempre a caccia.</p>
+    <div class="tic">Tic: ti bagni la matita e ripeti l'ultima parola dell'altro come fosse una domanda. «…a mezzanotte dici?»</div>
+    <div class="entry"><span class="k">Alla porta di':</span>«Il pellicano vola basso… e l'Ibis indiscreta entra nel locale!»</div>
+    <div class="obj"><span class="a">Atto I, la telefonata e gli appunti </span> Intervista tutti e scrivi sul taccuino <strong>un segreto (anche inventato) per ciascun ospite</strong>. Incalza, fatti raccontare qualcosa di piccante su ognuno. Inoltre, se suuona il telefono, rispondi la prima volta</div>
+    <div class="obj"><span class="a">Atto II, l'indagine</span> Col taccuino pieno di segreti, dai la caccia alla spia: <strong>tu sospetti Max</strong>, fagli delle domande e mettilo alle strette.</div>
+    <div class="obj"><span class="a">Atto III</span> Quando si scopre la verità sulla spia, strappa i tuoi appunti al bancone in segno di fiducia e svela il tuo gettone.</div>
     <div class="duo">
       <div class="good"><span class="h">Perché tieni al Pellicano</span> Qui hai trovato una famiglia, e uno scoop che ormai preferiresti non pubblicare.</div>
       <div class="bad"><span class="h">Perché ti sospettano</span> Scrivi i segreti di tutti su un taccuino. Per chi lavori davvero? E sei arrivata da poco.</div>
     </div>
-    <div class="hold"><span class="lab">Hai in mano</span> il gettone <strong>Ibis</strong> e la carta <strong>«La Verità»</strong> (un uso).</div>
-    <div class="props"><div class="prop"><b>Porti</b> un taccuino e una matita.</div><div class="prop"><b>Indossi</b> cappellino a tesa, aria da reporter.</div></div>
+    <div class="hold"><span class="lab">Hai in mano</span> il gettone <strong>Ibis</strong> </div>
+    <div class="props"><div class="prop"><b>Porti</b> un taccuino e una matita.</div><div class="prop"><b>Indossi</b> cappellino, aria da reporter.</div></div>
     <p class="foot">Dossier · JOE</p>
   </div></section></div>
 
 <div class="dossier" data-code="sazerac" hidden><section class="sheet card"><div class="inner">
     <div class="charhead"><div><h2>Thijs</h2><div class="role">The Distiller · fornitore &amp; distillatore</div></div>
-      <div class="tag"><div class="b">Fenicottero</div><div class="n">TESSERA II</div></div></div>
+      <div class="tag"><div class="b">Fenicottero</div><div class="n"></div></div></div>
     <hr class="rule">
     <div class="lab">Who you are</div>
     <p>A Dutch spirits merchant, born and bred in Utrecht: you run <strong>Stokerij De Roze Reiger</strong> ("The Pink Heron Distillery") and supply the bottles to half the city's bars, the Pellicano among them. Every bottle you sell carries your label. Business is drying up as the Loggia shuts club after club, so you badly need this place open. You're well known in the trade and, unfortunately, to the authorities. If the club falls and the books are seized, your name is on every invoice, and that means prison. You don't speak Italian; you deal in gestures, grins and toasts. <em>Your voice:</em> few words, warm, a booming «proost!».</p>
     <div class="tic">Tic: when you're nervous you polish a bottle with your sleeve. And you toast «proost!» every single time.</div>
-    <div class="entry"><span class="k">At the door, say:</span>«Il pellicano vola basso… and the tipsy Flamingo enters!» (show your Flamingo token)</div>
-    <div class="obj"><span class="a">Act I, your gag</span> You're the bartender-alchemist: go around and make <strong>everyone taste a shot of your pink spirit</strong>. No refusals. Toast each time.</div>
-    <div class="obj"><span class="a">Act II, you're the scapegoat</span> When the "spy" rumour spreads, all eyes turn to you: your name is on every bottle in the place. The proof that frames you is a little vial bearing your <strong>De Roze Reiger</strong> label, and <strong>Max has it</strong>. Get Joe on your side; her "Truth" card can break him.</div>
-    <div class="obj"><span class="a">Act III</span> Once Max smashes that vial, you're safe. Bring your token to the bar.</div>
+    <div class="entry"><span class="k">At the door, say:</span>«Il pellicano vola basso… and the tipsy Flamingo enters!»</div>
+    <div class="obj"><span class="a">Act I, the special reserve</span> You want everybody to taste your special reserve: go around and make <strong>everyone taste a shot of your spirit</strong>. No refusals. Toast each time. Serve to each person one a shot in the small glasses with your label (Nikita will give the labels to you when you arrive)</div>
+    <div class="obj"><span class="a">Act II, you're the scapegoat</span> When the presence of a spy is discovered, you want to make the evidence of your liquor disappear because you're afraid that the lodge, if they find it, will revoke your license to sell the little alcohol you can still sell. Make sure to take back all the items bearing your brand.</div>
+    <div class="obj"><span class="a">Act III</span> If the spy situation is resolved and you're safe, take your token to the bar.</div>
     <div class="duo">
       <div class="good"><span class="h">Why you're loyal</span> The Pellicano is your biggest client, and if it burns, your name burns with it.</div>
       <div class="bad"><span class="h">Why they suspect you</span> Already known to the police, with half the city's bottles carrying your name. What if you cut a deal to save your own neck? And the vial that frames you bears your mark.</div>
     </div>
-    <div class="en"><span class="lab">nota per la Signora</span> Il dossier è in inglese apposta. Chi glielo dà gli riassume: «La tua firma è su ogni bottiglia del locale, quindi daranno la colpa a te; la prova (una fiala con la tua etichetta) ce l'ha Max. Falla distruggere.»</div>
-    <div class="props"><div class="prop"><b>Bring</b> a hip flask + a bottle.</div><div class="prop"><b>Wear</b> an apron, rolled sleeves.</div></div>
+    <div class="props"><div class="prop"><b>Bring</b> A bottle with a transparent liquid or a flask, inside is your special alcohol reserve.</div><div class="prop"><b>Wear</b> rolled sleeves and a cigar.</div></div>
     <p class="foot">Dossier · THIJS</p>
   </div></section></div>
 
 <div class="dossier" data-code="aviation" hidden><section class="sheet card"><div class="inner">
     <div class="charhead"><div><h2>Serena</h2><div class="role">La Speziale · chimica della casa</div></div>
-      <div class="tag"><div class="b">Pavone</div><div class="n">TESSERA V</div></div></div>
+      <div class="tag"><div class="b">Pavone</div><div class="n"></div></div></div>
     <hr class="rule">
     <div class="lab">Chi sei</div>
     <p>La speziale del Pellicano: prepari tu le "medicine", gli sciroppi e l'idea stessa che qui si vende <em>alcol a scopo curativo</em>, la scappatoia che potrebbe salvare il locale dall'Ispettore. Fredda, curiosa, un pizzico strega. Tratti il bancone come un laboratorio. Una volta hai sbagliato una dose e hai steso mezza sala per un pomeriggio (non parlarne). Il cameriere Lorenzo ti gira sempre intorno e ti chiede consigli sui drink; tu, quando è troppo sbadato, gli prepari un «elisir della concentrazione». <em>Parli così:</em> precisa, misteriosa, con un sorrisetto.</p>
     <div class="tic">Tic: annusi ogni bicchiere prima di berlo e commenti l'"effetto collaterale" di tutto.</div>
-    <div class="entry"><span class="k">Alla porta di':</span>«Il pellicano vola basso… e il Pavone velenoso entra nel locale!» (mostra il gettone-Pavone)</div>
-    <div class="obj"><span class="a">Atto I, la tua gag</span> Fai bere a ciascuno una "medicina" (un liquore, una goccia colorata) annunciando un effetto collaterale finto e assurdo: «ti farà parlare in rima», «ti crescerà il coraggio», «dormirai in piedi». Più è ridicolo, meglio è. E sei tu la <strong>custode del Mobiletto proibito</strong>: se qualcuno vuole "esagerare", si rivolge a te.</div>
-    <div class="obj"><span class="a">Atto II</span> Nella caccia alla spia sei l'esperta: fai il "test della medicina" ai sospettati e osserva chi si agita. Semina piste false, divertiti. E ricorda alla sala che, se ci fosse un modo legale di restare aperti, sarebbe attraverso una medicina…</div>
+    <div class="entry"><span class="k">Alla porta di':</span>«Il pellicano vola basso… e il Pavone velenoso entra nel locale!»</div>
+    <div class="obj"><span class="a">Atto I, la tua gag</span> Fai bere a ciascuno una "medicina" (un liquore, una goccia colorata) annunciando un effetto collaterale finto e assurdo: «ti farà parlare in rima», «ti crescerà il coraggio», «dormirai in piedi».
+    A inizio serata chiedi a Lorenzo di prestarti il suo gettone-<strong>Oca</strong>: digli che ti serve per qualcosa di scientifico. Lui, che ci prova con te da mesi, te lo dà al volo. Poi <strong>non restituirglielo</strong>: tienilo il più a lungo possibile con una scusa nuova ogni volta («dopo», «l'ho messo via», «mi serve ancora un minuto, tesoro»). Divertiti a farti corteggiare. Cedilo solo se ti fa un favore vero, o quando la Signora ti mette fretta</div>
+    <div class="obj"><span class="a">Atto II</span> Nella caccia alla spia sei l'esperta: fai il "test della verità" ai sospettati e osserva chi si agita. Semina piste false, divertiti. E ricorda alla sala che, se ci fosse un modo legale di restare aperti, sarebbe attraverso una medicina…</div>
     <div class="callout host"><span class="lab">Il bancone è della Signora</span> Per fare i tuoi elisir ti serve il suo bancone. Offriti di darle il cambio («vai pure a fumarti una sigaretta, ci penso io») e, con quello che trovi lì, prepara le tue pozioni, meglio non farti vedere apertamente da lei. Questo ti torna utile alla fine.</div>
-    <div class="obj"><span class="a">Atto III, tocca a te il bancone</span> Sei tu la speziale: quando la ricetta è composta sulla plancia, <strong>prepari tu l'Elisir</strong> al bancone e lo versi nelle tazzine. Solo tu conosci gli "antidoti": se qualcuno ha esagerato, sei tu a salvarlo.</div>
+    <div class="obj"><span class="a">Atto III, preparare l'elisir</span> Dopo aver restituiro finalemente il gettone a Lorenzo, aiuta tutti a mettere insieme i gettoni e capire la ricetta segreta dell'elisir. Se serve, convinci l'ispettore che l'elisir è totalemente legale.</div>
     <div class="duo">
       <div class="good"><span class="h">Perché tieni al Pellicano</span> Qui la tua "farmacia" è quasi legale, e credi nella scappatoia dell'elisir medicinale.</div>
       <div class="bad"><span class="h">Perché ti sospettano</span> Sai addormentare e drogare chiunque, sei segretissima sulle formule, e c'è quell'incidente nel tuo passato.</div>
     </div>
-    <div class="hold"><span class="lab">Hai in mano</span> il gettone <strong>Pavone</strong> e le tue fialette.</div>
-    <div class="props"><div class="prop"><b>Porti</b> contagocce, fialette colorate.</div><div class="prop"><b>Indossi</b> camice corto, occhialini tondi.</div></div>
+    <div class="hold"><span class="lab">Hai in mano</span> il gettone <strong>Pavone</strong>, le tue fialette, la valigetta della perdizione e, per buona parte della serata, anche l'<strong>Oca</strong> di Lorenzo (che non gli vuoi rendere).</div>
+    <div class="props"><div class="prop"><b>Porti</b> fialette </div><div class="prop"><b>Indossi</b> camice corto, occhialini tondi.</div></div>
     <p class="foot">Dossier · SERENA</p>
   </div></section></div>
 
 <div class="dossier" data-code="spritz" hidden><section class="sheet card"><div class="inner">
     <div class="charhead"><div><h2>Lorenzo</h2><div class="role">Il Cameriere · la spalla comica</div></div>
-      <div class="tag"><div class="b">Oca</div><div class="n">TESSERA VI</div></div></div>
+      <div class="tag"><div class="b">Oca</div><div class="n"></div></div></div>
     <hr class="rule">
     <div class="lab">Chi sei</div>
-    <p>Cameriere di gran cuore e zero equilibrio: indossi i vassoi più di quanto li porti. Per la Signora, a cui devi tutto, faresti qualsiasi cosa, e cerchi in ogni modo di sembrare "sul pezzo" (non ci riesci mai del tutto). Sei sempre pronto a offrire qualcosa a chiunque, e i ricchi li detesti con tutto il cuore. Hai una cotta per Serena, la speziale: le giri intorno e ci provi goffamente; ogni tanto lei ti prepara un «elisir della concentrazione» perché sei troppo sbadato. <em>Parli così:</em> scusandoti di continuo, con slancio, verso la catastrofe.</p>
+    <p>Cameriere di gran cuore e zero equilibrio: ribalti i vassoi più di quanto li porti. Per la Signora, a cui devi tutto, faresti qualsiasi cosa, e cerchi in ogni modo di sembrare "sul pezzo" (non ci riesci mai del tutto). Sei sempre pronto a offrire qualcosa a chiunque, e i ricchi li detesti con tutto il cuore. Hai una cotta per Serena, la speziale: le giri intorno e ci provi goffamente; ogni tanto lei ti prepara un «elisir della concentrazione» perché sei troppo sbadato. <em>Parli così:</em> scusandoti di continuo, con slancio, verso la catastrofe.</p>
     <div class="tic">Tic (e gag): controlli di continuo che nessuno abbia il bicchiere vuoto, giri e riempi senza sosta, e ogni tanto rovesci qualcosa.</div>
-    <div class="callout host"><span class="lab">Il tuo problema (segreto!)</span> Hai <strong>perso il tuo gettone</strong> (caduto quando hai rovesciato un vassoio). Alla porta non puoi mostrarlo: devi convincere la Signora a farti entrare <strong>senza confessare</strong> di averlo perso (una scusa, una buffonata, offriti di lavorare gratis). Se scopre la figuraccia, ti multa: un giro offerto a tutti a spese tue.</div>
-    <div class="obj"><span class="a">Atti I, II</span> Fai il cameriere modello e corteggia la Signora per rientrare nelle sue grazie. A un certo punto lei "ritroverà" il tuo gettone e te lo ridarà.</div>
+        <div class="entry"><span class="k">Alla porta di':</span>«Corona di tre chicchi!»</div>
+    <div class="obj"><span class="a">Atti I </span> All'ingresso ricevi regolarmente il tuo gettone-Oca. Ma poco dopo Serena te lo chiede in prestito («mi serve un secondo, devo copiare il verso sul retro») e tu, che ci provi con lei da mesi, glielo molli subito. Sei anche un ottimo cameriere, prendi gli ordini e controlla che nessuno abbia il bicchiere vuoto</div>
+    <div class="obj"><span class="a">Atti II</span> Riprenditi l'Oca da Serena. Non puoi strapparglielo di mano e non vuoi litigare con lei: corteggiala, falle un favore, offrile qualcosa in cambio, o va' a piangere dalla Signora perché intervenga. Nel frattempo fai il cameriere modello e servi a tutti da bere.</div>
     <div class="obj"><span class="a">Atto III</span> Riavuto il gettone, portalo al bancone con gli altri.</div>
     <div class="duo">
       <div class="good"><span class="h">Perché tieni al Pellicano</span> La Signora è come una madre e il locale è casa tua.</div>
-      <div class="bad"><span class="h">Perché ti sospettano</span> Sei sempre tra i piedi e senti tutto; fai cadere le cose nei momenti peggiori; e perché hai perso proprio stasera il gettone?</div>
+      <div class="bad"><span class="h">Perché ti sospettano</span> Sei sempre tra i piedi e senti tutto; fai cadere le cose nei momenti peggiori; e giri tutta la sera senza il tuo gettone, dov'è finito?</div>
     </div>
-    <div class="hold"><span class="lab">Non hai il gettone</span>, ce l'ha la Signora. Riconquistala e te lo ridà.</div>
+    <div class="hold"><span class="lab">Non hai il gettone</span>: l'<strong>Oca</strong> ce l'ha Serena, che continua a non ridartela. Fattela ridare prima del rito finale.</div>
     <div class="props"><div class="prop"><b>Porti</b> un vassoio (lo userai eccome).</div><div class="prop"><b>Indossi</b> papillon storto, strofinaccio sulla spalla.</div></div>
     <p class="foot">Dossier · LORENZO</p>
   </div></section></div>
 
 <div class="dossier" data-code="boulevard" hidden><section class="sheet card"><div class="inner">
     <div class="charhead"><div><h2>Max</h2><div class="role">Il Produttore · l'uomo di passaggio</div></div>
-      <div class="tag"><div class="b">Anatra</div><div class="n">TESSERA VII</div></div></div>
+      <div class="tag"><div class="b">Anatra</div><div class="n"></div></div></div>
     <hr class="rule">
     <div class="lab">Chi sei</div>
     <p>Un produttore musicale arrivato a Utrecht da un paio di mesi, con un sorriso facile e mille storie. Ti sei fatto voler bene in fretta: offri da bere, conosci già i nomi di tutti, sai far ridere. Ma sei anche nei guai, devi dei soldi a gente che non scherza, e la Loggia l'ha scoperto, mettendoti con le spalle al muro. Stanotte scoprirai se sei uno che vende gli amici, o no. <em>Parli così:</em> caldo, spiritoso, un filo evasivo se si parla del tuo passato.</p>
     <div class="tic">Tic: quando una domanda si fa scomoda, la scavalchi con una battuta e offri un altro giro.</div>
-    <div class="entry"><span class="k">Alla porta di':</span>«Il pellicano vola basso… e l'Anatra spavalda entra nel locale!» (mostra il gettone-Anatra)</div>
-    <div class="obj"><span class="a">Atto I, la tua gag</span> Fai il PR: <strong>fatti "assumere" da almeno tre persone per un fantomatico progetto</strong> (fatti dare nome e una promessa). E offri da bere a tutti: sei il più simpatico della sala.</div>
-    <div class="callout host"><span class="lab">Il tuo segreto</span> La Loggia ti tiene per il collo: <strong>cancellano il tuo debito</strong> se stanotte fai un nome, indichi un "socio-spia" all'Ispettore, e pianti una prova. La prova è la <strong>fiala</strong> che hai in tasca: un campione della "riserva rosa" di Thijs, con attaccata l'<strong>etichetta della sua distilleria</strong>. Basta consegnarla per mandarlo in prigione. Insieme alla fiala, la Loggia ti ha dato un <strong>foglio con le loro istruzioni</strong>: è la prova nera su bianco che tutta la storia della spia è una loro montatura.</div>
-    <div class="obj"><span class="a">Atto II, la Scelta</span> Durante la Retata la Signora ti fa un cenno: la Loggia aspetta il nome, decidi ora. Se Joe ti inchioda con «La Verità», rispondi sincero. Vendere un amico e saldare il debito, o mandare tutto all'aria?</div>
-    <div class="obj"><span class="a">Atto III, la tua redenzione</span> Se scegli noi: <strong>spacca la fiala</strong> davanti a tutti e sventola il <strong>foglio della Loggia</strong>: «Non c'è nessuna spia! Era tutto un loro gioco per farci a pezzi da soli.» È il tuo riscatto. Un attimo dopo squillerà il telefono con la vera via d'uscita. Poi porta il gettone al bancone con gli altri.</div>
+    <div class="entry"><span class="k">Alla porta di':</span>«Il pellicano vola basso… e l'Anatra spavalda entra nel locale!»</div>
+    <div class="obj"><span class="a">Atto I, la tua gag</span> Fai il PR: <strong>fatti "assumere" da almeno tre persone per un fantomatico progetto</strong> (fatti dare nome e una promessa). E offri da bere a tutti: sei il più simpatico della sala. Quando Thijs servirà il suo liquore speciale nei bicchierini con la sua etichetta, conservane e nascondine uno, non ridarglielo per nulla al mondo.</div>
+    <div class="obj"><span class="a">Atto II, la Scelta</span> Durante la Retata la Signora ti fa un cenno per darti una busta: la Loggia aspetta un nome da te e in cambio cancellerà tutti i tuoi debiti. devi scegliere se tradire o salvare il Pellicano. Ricorda, puoi incastrare facilmente Thijs perchè hai il suo bicchiere con l'etichetta della riserva speciale che hai conservato.</div>
+    <div class="obj"><span class="a">Atto III, la tua redenzione</span> Quando la signora te lo dirà sarà il momento di scegliere tra noi e i soldi. Se scegli noi: <strong>strappa la lettera della Loggia davanti a tutti e spiega cosa è successo (hanno provato a reclutarti per soldi). Un attimo dopo squillerà il telefono con la vera via d'uscita. Poi porta il gettone al bancone con gli altri.</div>
     <div class="duo">
       <div class="good"><span class="h">Perché potresti restare</span> È il primo posto che ti ha fatto sentire a casa, e cominci a odiare ciò che la Loggia ti ha chiesto.</div>
       <div class="bad"><span class="h">Perché ti sospettano</span> Sei arrivato da poco e schivi ogni domanda sul tuo passato; e qualcuno ti ha visto rispondere al telefono, da solo, nel vicolo.</div>
     </div>
-    <div class="hold"><span class="lab">Hai in mano</span> il gettone <strong>Anatra</strong>, la <strong>fiala</strong> (con l'etichetta di Thijs), il <strong>foglio delle istruzioni della Loggia</strong> (dentro c'è la scappatoia), una busta di finti soldi.</div>
+    <div class="hold"><span class="lab">Hai in mano</span> il gettone <strong>Anatra</strong>, il bicchiere con l'etichetta di Thijs</strong> (con l'etichetta di Thijs), il <strong>foglio delle istruzioni della Loggia</strong> (dentro c'è la scappatoia), una busta di finti soldi (te li consegna la signora).</div>
     <div class="props"><div class="prop"><b>Porti</b> una busta di banconote d'epoca.</div><div class="prop"><b>Indossi</b> cappello, sciarpa di seta.</div></div>
     <p class="foot">Dossier · MAX</p>
   </div></section></div>
 
-<div class="dossier" data-code="gimlet" hidden><section class="sheet card"><div class="inner">
+<div class=" dossier" data-code="gimlet" hidden><section class="sheet card"><div class="inner">
     <div class="charhead"><div><h2>Sorcha</h2><div class="role">La Cantante · anima del locale</div></div>
-      <div class="tag"><div class="b">Cigno</div><div class="n">TESSERA III</div></div></div>
+      <div class="tag"><div class="b">Cigno</div><div class="n"></div></div></div>
     <hr class="rule">
     <div class="lab">Chi sei</div>
     <p>La voce e l'anima del Pellicano: una chanteuse irlandese, presentatrice nata, teatrale e tenera. Quando sali sul palco la sala ammutolisce. Ami la festa, il rischio, gli sguardi lunghi; sei tu a tenere su la serata quando le cose si fanno pesanti. <em>Parli così:</em> musicale, giocosa, regale sotto i riflettori.</p>
     <div class="tic">Tic: canticchi sottovoce, tocchi il braccio della gente e affibbi a ognuno un soprannome da palco.</div>
-    <div class="entry"><span class="k">Alla porta di':</span>«Il pellicano vola basso… e il Cigno canterino entra nel locale!» (mostra il gettone-Cigno)</div>
-    <div class="obj"><span class="a">Atto I, la tua gag</span> Sei la MC: apri con un brindisi o una canzoncina e "assegna" a ognuno un ruolo buffo per lo spettacolo di mezzanotte («tu sei il mio corista», «tu reggi lo strascico»).</div>
-    <div class="obj"><span class="a">Atto II</span> Quando monta il sospetto, tieni calma la sala: canti, sdrammatizzi, fai girare da bere, riporti la festa.</div>
-    <div class="obj"><span class="a">Atto III, il tuo grande momento</span> Dopo che Max smonta la spia e il telefono rivela la via d'uscita, tocca a te <strong>guidare il rito finale</strong>: aiuta a cercare la plancia, chiama tutti al bancone coi gettoni, fai leggere la ricetta nell'ordine dell'Insegna, e all'arrivo dell'Ispettore <strong>dai il via alla recita all'unisono</strong> della Formula del Pellicano. Sei tu la regista della scena madre.</div>
+    <div class="entry"><span class="k">Alla porta di':</span>«Il pellicano vola basso… e il Cigno canterino entra nel locale!»</div>
+    <div class="obj"><span class="a">Atto I, la tua gag</span> Sei la MC: apri con un brindisi o una canzoncina e insegna le migliori mosse di burlesque.</div>
+    <div class="obj"><span class="a">Atto II</span>Quando si scopre che c'è un inflitrato e monta il sospetto, tieni calma la sala: canti, sdrammatizzi, fai girare da bere, riporti la festa.</div>
+    <div class="obj"><span class="a">Atto III, il grande momento</span> Se si è risolta la questione della spia, sarà necessario compiere <strong> il rito finale</strong>: aiuta a cercare la plancia, chiama tutti al bancone coi gettoni, fai leggere la ricetta nell'ordine corretto, e all'arrivo dell'Ispettore <strong>dai il via alla recita all'unisono</strong> della Formula del Pellicano.</div>
     <div class="duo">
       <div class="good"><span class="h">Perché tieni al Pellicano</span> Ti ha resa quella che sei: bruceresti pur di salvarlo.</div>
       <div class="bad"><span class="h">Perché ti sospettano</span> Troppo tranquilla davanti alla minaccia, quasi ti divertisse. E chi meglio di te, che parli con tutti, per passare un nome alla Loggia?</div>
     </div>
-    <div class="hold"><span class="lab">Hai in mano</span> il gettone <strong>Cigno</strong>. Potere: quando canti, la sala si zittisce, usalo per fermare una lite o per lanciare la Formula finale.</div>
-    <div class="props"><div class="prop"><b>Porti</b> un microfono (anche finto), una boa.</div><div class="prop"><b>Indossi</b> boa di piume, guanti da sera.</div></div>
+    <div class="props"><div class="prop"><b>Porti</b> un microfono (o qualcosa che funga come tale).</div><div class="prop"><b>Indossi</b> abbigliamento eccentrico, boa di piume, guanti da sera.</div></div>
     <p class="foot">Dossier · SORCHA</p>
   </div></section></div>
 </div>
@@ -394,142 +436,282 @@ iframe.gaz{width:100%;height:1180px;border:1px solid var(--paper-edge);backgroun
 <title>De Utrechtsche Bode, 12 settembre 1927</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital, wght@0, 500;0, 700;0, 900;1, 600&family=EB+Garamond:ital, wght@0, 400;0, 500;1, 400&family=Special+Elite&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
   :root{--ink:#211d17;--sub:#4a4238;--rule:#2a251e;--paper:#efe7d4;
     --disp:"Playfair Display", Georgia, serif;--body:"EB Garamond", Georgia, serif;--mono:"Special Elite", monospace;}
   *{box-sizing:border-box}
-  body{margin:0;background:#20372b;padding:26px 14px 70px;color:var(--ink);font-family:var(--body);line-height:1.42}
-  .paper{max-width:880px;margin:0 auto;background:var(--paper);
-    background-image:radial-gradient(140% 60% at 50% 0%, #f6efdd 0%, transparent 60%);
-    box-shadow:0 26px 60px -24px #000b;padding:30px 34px 40px;position:relative}
-  .paper::before{content:"";position:absolute;inset:10px;border:1px solid #2a251e33;pointer-events:none}
-  .mast{text-align:center;border-bottom:4px double var(--rule);padding-bottom:10px}
-  .mast .over{font-style:italic;font-size:.9rem;color:var(--sub)}
-  .mast h1{font-family:var(--disp);font-weight:900;font-size:clamp(2.2rem, 7.4vw, 4.2rem);line-height:.9;margin:2px 0 2px}
-  .mast .it{font-family:var(--disp);font-style:italic;font-size:1rem;color:var(--sub)}
-  .dline{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--sub);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:5px 2px;margin-top:8px}
-  .dline .mid{font-family:var(--disp);font-style:italic;text-transform:none;letter-spacing:0;font-size:.84rem}
+  html,body{margin:0}
+  body{background:#20372b;color:var(--ink);font-family:var(--body);line-height:1.4;
+    padding:24px 12px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .mag{display:flex;flex-direction:column;align-items:center;gap:26px}
+  .page{width:210mm;min-height:297mm;display:flex;flex-direction:column;position:relative;
+    background:var(--paper);background-image:radial-gradient(140% 55% at 50% 0%, #f6efdd 0%, transparent 55%);
+    box-shadow:0 26px 60px -24px #000b;padding:15mm 16mm 12mm}
+  .page::before{content:"";position:absolute;inset:8mm;border:1px solid #2a251e33;pointer-events:none}
+  .p1 .pageno,.p2 .colophon{margin-top:auto}
+  .pageno{padding-top:8px;text-align:center;font-family:var(--mono);
+    font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sub);border-top:1px solid var(--rule)}
+
+  .mast{text-align:center;border-bottom:4px double var(--rule);padding-bottom:9px}
+  .mast .over{font-style:italic;font-size:.86rem;color:var(--sub)}
+  .mast h1{font-family:var(--disp);font-weight:900;font-size:3rem;line-height:.9;margin:2px 0}
+  .mast .it{font-family:var(--disp);font-style:italic;font-size:.95rem;color:var(--sub)}
+  .dline{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.66rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--sub);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:5px 2px;margin-top:7px}
+  .dline .mid{font-family:var(--disp);font-style:italic;text-transform:none;letter-spacing:0;font-size:.8rem}
   .dline .r{text-align:right}
-  .lead{margin-top:16px;text-align:center;border-bottom:1px solid var(--rule);padding-bottom:12px}
-  .lead .eye{font-style:italic;color:#6a2318;font-size:1rem}
-  .lead h2{font-family:var(--disp);font-weight:900;font-size:clamp(1.8rem, 5vw, 2.9rem);line-height:1;margin:0}
-  .lead .deck{font-family:var(--disp);font-weight:500;font-style:italic;font-size:1.12rem;color:var(--sub);margin-top:8px}
-  .grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:22px;margin-top:16px}
-  .col p{margin:0 0 9px;font-size:.92rem;text-align:justify;hyphens:auto}
-  .byline{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);margin-bottom:6px}
-  h3.head{font-family:var(--disp);font-weight:700;font-size:1.28rem;line-height:1.05;margin:0 0 6px;border-bottom:2px solid var(--rule);padding-bottom:4px}
-  h4.sub{font-family:var(--disp);font-weight:700;font-size:1rem;margin:12px 0 3px}
-  .drop::first-letter{font-family:var(--disp);font-weight:900;font-size:3.4rem;float:left;line-height:.72;padding:6px 8px 0 0;color:#6a2318}
-  .box{border:1px solid var(--rule);padding:12px 13px;margin-top:10px;background:#00000006}
+  .lead{margin-top:12px;text-align:center;border-bottom:1px solid var(--rule);padding-bottom:10px}
+  .lead .eye{font-style:italic;color:#6a2318;font-size:.95rem}
+  .lead h2{font-family:var(--disp);font-weight:900;font-size:2.1rem;line-height:1.02;margin:2px 0 0}
+  .lead .deck{font-family:var(--disp);font-weight:500;font-style:italic;font-size:1.02rem;color:var(--sub);margin-top:7px}
+  .grid{display:grid;grid-template-columns:1.18fr 1fr 1fr;gap:18px;margin-top:13px}
+  .grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:22px;margin-top:13px}
+  .col p{margin:0 0 8px;font-size:.85rem;text-align:justify;hyphens:auto}
+  .byline{font-family:var(--mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);margin-bottom:6px}
+  h3.head{font-family:var(--disp);font-weight:700;font-size:1.2rem;line-height:1.05;margin:0 0 6px;border-bottom:2px solid var(--rule);padding-bottom:4px}
+  h4.sub{font-family:var(--disp);font-weight:700;font-size:.98rem;margin:11px 0 3px}
+  .drop::first-letter{font-family:var(--disp);font-weight:900;font-size:3rem;float:left;line-height:.72;padding:6px 8px 0 0;color:#6a2318}
+  .box{border:1px solid var(--rule);padding:10px 12px;margin-top:9px;background:#00000006}
   .box.dark{border:2px solid var(--rule)}
-  .kicker{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:#6a2318}
+  .box p{font-size:.8rem;margin:5px 0 0}
+  .kicker{font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#6a2318}
   .gossip{list-style:none;margin:6px 0 0;padding:0}
-  .gossip li{padding:6px 0;border-bottom:1px dotted #2a251e55;font-size:.9rem}
+  .gossip li{padding:5px 0;border-bottom:1px dotted #2a251e55;font-size:.82rem}
   .gossip b{font-family:var(--disp);font-weight:700}
-  .ads .ad{border-top:1px solid #2a251e40;padding:7px 0;font-size:.84rem}
+  .ads .ad{border-top:1px solid #2a251e40;padding:6px 0;font-size:.8rem}
   .ads .ad:first-of-type{border-top:0}
-  .ads .ad b{font-family:var(--mono);font-size:.66rem;letter-spacing:.05em;display:block;color:#6a2318;text-transform:uppercase}
-  .band{border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);margin-top:18px;padding:10px 0;
-    display:grid;grid-template-columns:repeat(4, 1fr);gap:16px}
-  .band .b{font-size:.82rem} .band .b b{font-family:var(--disp);display:block;font-size:.92rem}
-  .orn{text-align:center;color:#6a2318;letter-spacing:.5em;margin:8px 0}
-  .foot{text-align:center;font-style:italic;color:var(--sub);font-size:.8rem;margin-top:16px;border-top:4px double var(--rule);padding-top:10px}
-  @media (max-width:720px){.grid{grid-template-columns:1fr}.band{grid-template-columns:1fr 1fr}}
-  @media print{body{background:#fff;padding:0}.paper{box-shadow:none;max-width:none;padding:12mm}.paper::before{inset:6mm}}
+  .ads .ad b{font-family:var(--mono);font-size:.62rem;letter-spacing:.05em;display:block;color:#6a2318;text-transform:uppercase}
+  .band{border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);margin-top:12px;padding:9px 0;
+    display:grid;grid-template-columns:repeat(2, 1fr);gap:12px 16px}
+  .band .b{font-size:.8rem} .band .b b{font-family:var(--disp);display:block;font-size:.88rem}
+  .letters p{font-size:.82rem;margin:0 0 7px}
+  .puzzle{border-top:2px solid var(--rule);margin-top:14px;padding-top:9px}
+  .pz-cap{font-size:.8rem;font-style:italic;color:var(--sub);margin:3px 0 8px}
+  .pz-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:430px;margin:0 auto}
+  .sd{width:100%;height:auto;stroke:var(--ink);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;
+    background:#fffdf4;border:1px solid var(--rule)}
+  .sd .fill{fill:var(--ink);stroke:none}
+  .sd .thin{stroke-width:1.5}
+  .pz-lab{display:flex;justify-content:space-between;max-width:430px;margin:5px auto 0;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;color:var(--sub)}
+  .pz-sol{font-size:.64rem;color:var(--sub);text-align:center;margin:10px 0 0;transform:rotate(180deg)}
+  .orn{text-align:center;color:#6a2318;letter-spacing:.5em;margin:14px 0 4px}
+  .foot{text-align:center;font-style:italic;color:var(--sub);font-size:.78rem;margin-top:6px;border-top:4px double var(--rule);padding-top:9px}
+  .p2head{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:.6rem;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--sub);border-bottom:2px solid var(--rule);padding-bottom:6px}
+
+  @media screen and (max-width:820px){
+    body{padding:16px 10px}
+    .mag{gap:16px}
+    .page{width:100%;min-height:0;padding:22px 18px 30px}
+    .page::before{inset:11px}
+    .mast h1{font-size:2.3rem}.lead h2{font-size:1.6rem}
+    .grid,.grid2{grid-template-columns:1fr;gap:14px}
+    .band{grid-template-columns:1fr}
+  }
+  @media print{
+    @page{size:A4;margin:0}
+    html,body{background:#fff}
+    body{padding:0}
+    .mag{gap:0;display:block}
+    .page{width:210mm;height:296mm;min-height:0;margin:0;padding:15mm 16mm 12mm;
+      box-shadow:none;overflow:hidden;break-inside:avoid}
+    .page:not(:last-child){break-after:page;page-break-after:always}
+    .page::before{border-color:#00000022}
+  }
 </style>
 </head>
 <body>
-<div class="paper">
+<div class="mag">
 
-  <div class="mast">
-    <div class="over">Foglio della sera · dal 1873 · indipendente (per quel che è ancora concesso)</div>
-    <h1>De Utrechtsche Bode</h1>
-    <div class="it">La Gazzetta di Utrecht · edizione italiana</div>
-    <div class="dline"><span>Anno LIV, N. 254</span>
-      <span class="mid">«Tutto ciò che è lecito stampare, e qualcosa di più»</span>
-      <span class="r">Lunedì 12 settembre 1927 · Cent. 20</span></div>
-  </div>
-
-  <div class="lead">
-    <div class="eye">La stretta del Decoro non conosce sosta</div>
-    <h2>Utrecht chiude a chiave: sette locali sbarrati sull'Oudegracht</h2>
-    <div class="deck">Chiuso ogni locale dove scorra alcol o giri una sostanza. Si salva solo chi vende medicine. E stanotte, dicono, tocca a un certo scantinato dal nome d'uccello</div>
-  </div>
-
-  <div class="grid">
-    <!-- COL 1 -->
-    <div class="col">
-      <div class="byline">Cronaca cittadina, dal nostro inviato al Neude</div>
-      <p class="drop">Non si ricorda un autunno più cupo per chi ama fare tardi. La <b>Loggia del Decoro e della Sobrietà</b> ha ottenuto pieni poteri dal Municipio: fa chiudere ogni locale in cui si trovi <em>un solo goccio d'alcol o una sola sostanza proibita</em>. Un'unica eccezione nella legge: chi vende alcolici <em>a fini medicinali</em>, registrati come rimedio, resta intoccabile. Per tutti gli altri, saracinesche abbassate e una lista di indirizzi che nessuno vorrebbe leggere accanto al proprio nome. All'ombra della Domtoren, la sera, non si sente più un pianoforte.</p>
-      <p>Il metodo è sempre lo stesso. Prima le voci: si mormora che in un locale ci sia un <em>infiltrato</em>, un socio che passa i nomi. Poi la diffidenza fa il resto, gli amici si guardano storto, qualcuno parla di troppo, e all'arrivo dell'ispezione il locale si è già sbranato da sé. «Non ci serve nemmeno una prova», confida un funzionario che chiede l'anonimato. «Basta che smettano di fidarsi l'uno dell'altro.»</p>
-      <p>Chi denuncia un vicino riceve un premio in fiorini; chi ospita ballerini dopo le 23 rischia il fermo. Gli esercenti più accorti hanno però riscoperto una vecchia scappatoia (si veda il riquadro «Note mediche»), e non tutti i tavoli si sono arresi al silenzio.</p>
-
-      <h4 class="sub">L'uomo che spegne le luci</h4>
-      <p>A guidare le ispezioni è un funzionario di cui in città si fa il nome a bassa voce. Elegante, implacabile, dotato, dicono, di una voce da far gelare il sangue. Volto ignoto, metodi noti: dove entra lui, un locale non riapre. Le nostre fonti lo attendono «prima che finisca la settimana; alcuni giurano stanotte stessa». Chi sia davvero, nessuno lo ha mai visto in faccia.</p>
+  <!-- ===================== PAGINA 1 ===================== -->
+  <div class="page p1">
+    <div class="mast">
+      <div class="over">Foglio della sera · dal 1873 · indipendente (per quel che è ancora concesso)</div>
+      <h1>De Utrechtsche Bode</h1>
+      <div class="it">La Gazzetta di Utrecht · edizione italiana</div>
+      <div class="dline"><span>Anno LIV, N. 254</span>
+        <span class="mid">«Tutto ciò che è lecito stampare, e qualcosa di più»</span>
+        <span class="r">12 settembre 1927 · Cent. 20</span></div>
     </div>
 
-    <!-- COL 2 -->
-    <div class="col">
-      <h3 class="head">Voci dal demi-monde</h3>
-      <div class="byline">La rubrica mondana di Madama Civetta</div>
-      <p style="font-size:.88rem">Si parla, come sempre, di un certo scantinato dall'insegna a forma d'uccello acquatico. Ecco chi vi si incontra di questi tempi:</p>
-      <ul class="gossip">
-        <li><b>La Signora</b>, che regna sul bancone e su tutti i suoi segreti. Nessuno sa chi possieda davvero il locale; lei sorride e versa.</li>
-        <li><b>La Cronista</b>, una penna che prende troppi appunti nei posti sbagliati. A caccia dello scoop che le cambierà la vita.</li>
-        <li><b>Il Fornitore</b>, che riempie i bancali di quasi tutti i locali di Utrecht ancora aperti. Con la stretta della Loggia gli restano pochi clienti: ha una gran fame di affari, e il suo nome è già negli archivi delle autorità.</li>
-        <li><b>La Speziale</b>, le sue «medicine» fanno miracoli. Si dice che una sua pozione, un pomeriggio, abbia steso di colpo un intero salotto: un errore di dosaggio, giura lei, del tutto accidentale.</li>
-        <li><b>Il Cameriere</b>, sempre pronto a offrirti qualcosa e a non lasciarti mai col bicchiere vuoto; porta i vassoi più addosso che in mano, e detesta i ricchi con tutto il cuore.</li>
-        <li><b>Il Produttore</b>, forestiero affascinante, in città da due mesi, tasche sempre gonfie. Da che parte stia, non è dato sapere.</li>
-        <li><b>La Cantante</b>, la voce dello scantinato, e la memoria di ogni suo segreto.</li>
-        <li><b>L'Ingegnere</b>, l'uomo delle luci e della musica strana. Parla poco, aggiusta tutto.</li>
-      </ul>
+    <div class="lead">
+      <div class="eye">La stretta del Decoro non conosce sosta</div>
+      <h2>Utrecht chiude a chiave: sette locali sbarrati sull'Oudegracht</h2>
+      <div class="deck">Chiuso ogni locale dove scorra alcol o giri una sostanza. Si salva solo chi vende medicine. E stanotte, dicono, tocca a un certo scantinato dal nome d'uccello</div>
     </div>
 
-    <!-- COL 3 -->
-    <div class="col">
-      <div class="box dark ads">
-        <div class="kicker">Piccola posta &amp; annunci</div>
-        <div class="ad"><b>Avviso legale</b>Le nuove ordinanze colpiscono <em>ogni</em> locale con alcol o sostanze. Restano esentati i soli <em>elisir a fini medicinali</em>, registrati come rimedio: un'erboristeria in regola non teme ispezione.</div>
-        <div class="ad"><b>Personale, P. cerca soci</b>La parola alla soglia è mutata. Da stanotte: «<em>il pellicano vola basso</em>». Chi sa, sa.</div>
-        <div class="ad"><b>Il colmo della settimana</b>Qual è il colmo per un pellicano? Restare a becco asciutto in mezzo al canale. <span style="font-style:italic">(inviato da un lettore di Wittevrouwen)</span></div>
+    <div class="grid">
+      <!-- COL 1 -->
+      <div class="col">
+        <div class="byline">Cronaca cittadina, dal nostro inviato al Neude</div>
+        <p class="drop">Non si ricorda un autunno più cupo per chi ama fare tardi. La <b>Loggia del Decoro e della Sobrietà</b> ha ottenuto pieni poteri dal Municipio: fa chiudere ogni locale in cui si trovi <em>un goccio d'alcol o una sostanza proibita</em>. Un'unica eccezione: chi vende alcolici <em>a fini medicinali</em>, registrati come rimedio, resta intoccabile. Per gli altri, saracinesche abbassate.</p>
+        <p>Il metodo è sempre lo stesso. Prima le voci: si mormora che in un locale ci sia un <em>infiltrato</em>, un socio che passa i nomi. Poi la diffidenza fa il resto, e all'arrivo dell'ispezione il locale si è già sbranato da sé. «Non ci serve una prova», confida un funzionario. «Basta che smettano di fidarsi l'uno dell'altro.»</p>
+        <h4 class="sub">L'uomo che spegne le luci</h4>
+        <p>A guidare le ispezioni è un funzionario di cui in città si fa il nome a bassa voce. Elegante, implacabile, dotato, dicono, di una voce da far gelare il sangue. Dove entra lui, un locale non riapre. Le nostre fonti lo attendono «prima che finisca la settimana; alcuni giurano stanotte stessa».</p>
       </div>
 
-      <div class="box">
-        <div class="kicker">Note mediche</div>
-        <p style="font-size:.84rem;margin:6px 0 0">Il celebre <b>Elisir del Pellicano</b>, tonico corroborante a base di caffè e spiriti scelti, è registrato come rimedio. Va servito, per prescrizione, in <em>tazza da tè</em> e assunto in compagnia. Effetti riportati: buonumore, coraggio e un'irresistibile voglia di ballare.</p>
+      <!-- COL 2 -->
+      <div class="col">
+        <h3 class="head">Voci dal demi-monde</h3>
+        <div class="byline">La rubrica mondana di Madama Civetta</div>
+        <p style="font-size:.82rem">Si parla, come sempre, di un certo scantinato dall'insegna a forma d'uccello acquatico. Ecco chi vi si incontra di questi tempi:</p>
+        <ul class="gossip">
+          <li><b>La Signora</b>, che regna sul bancone e sui suoi segreti. Nessuno sa chi possieda il locale; lei sorride e versa.</li>
+          <li><b>La Cronista</b>, una penna che prende troppi appunti nei posti sbagliati. A caccia dello scoop della vita.</li>
+          <li><b>Il Fornitore</b>, che riempie i bancali di mezza città. Pochi clienti gli restano, e il suo nome è già negli archivi delle autorità.</li>
+          <li><b>La Speziale</b>, le cui «medicine» fanno miracoli. Si dice che una sua pozione abbia steso di colpo un intero salotto: errore di dosaggio, giura lei.</li>
+          <li><b>Il Cameriere</b>, che non ti lascia mai col bicchiere vuoto; porta i vassoi più addosso che in mano, e detesta i ricchi.</li>
+          <li><b>Il Produttore</b>, forestiero affascinante, in città da due mesi, tasche sempre gonfie. Da che parte stia, non è dato sapere.</li>
+          <li><b>La Cantante</b>, la voce dello scantinato, e la memoria di ogni suo segreto.</li>
+          <li><b>L'Ingegnere</b>, l'uomo delle luci e della musica strana. Parla poco, aggiusta tutto.</li>
+        </ul>
       </div>
 
-      <div class="box">
-        <div class="kicker">Curiosità di scienze naturali</div>
-        <p style="font-size:.84rem;margin:6px 0 0">Ogni uccello ha la sua ora. All'alba, per primo, apre il coro il <b>pellicano</b>; e ultima, quando cala il buio, tace la <b>gru</b>. Gli altri sei si dispongono in mezzo, dal più mattiniero al più notturno. Chi conosce quest'ordine, dicono i naturalisti, «conosce l'orologio del cielo».</p>
-      </div>
+      <!-- COL 3 -->
+      <div class="col">
+        <div class="box dark ads">
+          <div class="kicker">Piccola posta &amp; annunci</div>
+          <div class="ad"><b>Avviso legale</b>Le nuove ordinanze colpiscono <em>ogni</em> locale con alcol o sostanze. Restano esentati i soli <em>elisir a fini medicinali</em>, registrati come rimedio: un'erboristeria in regola non teme ispezione.</div>
+          <div class="ad"><b>Personale, P. cerca soci</b>La parola alla soglia è mutata. Da stanotte: «<em>il pellicano vola basso</em>». Chi sa, sa.</div>
+          <div class="ad"><b>Il colmo della settimana</b>Qual è il colmo per un pellicano? Restare a becco asciutto in mezzo al canale.</div>
+        </div>
 
-      <div class="box">
-        <div class="kicker">Il tempo</div>
-        <p style="font-size:.82rem;margin:6px 0 0">Sereno con foschie serali sui canali. Vento debole da nord-ovest. Le luci, dove ancora ci sono, si accendono alle 20.</p>
+        <div class="box">
+          <div class="kicker">Note mediche</div>
+          <p>Il celebre <b>Elisir del Pellicano</b>, tonico corroborante a base di caffè e spiriti scelti, è registrato come rimedio. Va servito, per prescrizione, in <em>tazza da tè</em> e assunto in compagnia. Effetti riportati: buonumore, coraggio e un'irresistibile voglia di ballare.</p>
+        </div>
+
+        <div class="box">
+          <div class="kicker">Curiosità di scienze naturali</div>
+          <p>Ogni uccello ha la sua ora per cantare. Dall'alba al tramonto si dispongono da chi è il più mattiniero a chi è il più notturno. Chi conosce quest'ordine, dicono i naturalisti, «conosce l'orologio del cielo».</p>
+        </div>
       </div>
     </div>
+
+    <div class="pageno">De Utrechtsche Bode · pagina 1 di 2 · si legge di nascosto</div>
   </div>
 
-  <!-- BANDA "IN BREVE" -->
-  <div class="band">
-    <div class="b"><b>Gatto sulla Domtoren</b>Recuperato dopo sei ore il gatto della sagrestana, rifugiatosi al secondo ballatoio. Illeso, di pessimo umore.</div>
-    <div class="b"><b>Tram in ritardo</b>La linea 2 per Wittevrouwen accumula venti minuti: «colpa del nuovo regolamento sui campanelli», protesta il conducente.</div>
-    <div class="b"><b>Rincara il caffè</b>Il chicco tocca prezzi mai visti al mercato di Vredenburg. I baristi minacciano tazzine più piccole.</div>
-    <div class="b"><b>Registro della Sobrietà</b>Il Municipio invita i cittadini a segnalare «rumori molesti di allegria». Premio ai delatori più zelanti.</div>
+  <!-- ===================== PAGINA 2 ===================== -->
+  <div class="page p2">
+    <div class="p2head">
+      <span>De Utrechtsche Bode &middot; 12 settembre 1927</span>
+      <span>Cronache minori, lettere e avvisi</span>
+      <span>Anno LIV, N. 254</span>
+    </div>
+
+    <div class="grid2">
+      <div class="col">
+        <h3 class="head">In breve dalla città</h3>
+        <div class="band">
+          <div class="b"><b>Gatto sulla Domtoren</b>Recuperato dopo sei ore il gatto della sagrestana, rifugiatosi al secondo ballatoio. Illeso, di pessimo umore.</div>
+          <div class="b"><b>Tram in ritardo</b>La linea 2 per Wittevrouwen accumula venti minuti: «colpa del regolamento sui campanelli», protesta il conducente.</div>
+          <div class="b"><b>Registro della Sobrietà</b>Il Municipio invita a segnalare «rumori molesti di allegria». Premio ai delatori più zelanti.</div>
+          <div class="b"><b>Arrestati per un valzer</b>Due giovani fermati sull'Oudegracht «per ballo non autorizzato». Rilasciati con multa.</div>
+          <div class="b"><b>Smarrito</b>Cagnolino bianco risponde al nome di «Jenever». Ricompensa. Locanda presso Janskerkhof.</div>
+          <div class="b"><b>Calcio</b>Il club cittadino s'impone per due a uno; il pubblico esulta sottovoce, per non essere multato.</div>
+        </div>
+
+        <h4 class="sub">Le «gocce magiche» che fanno ridere le tende</h4>
+        <p style="font-size:.82rem">Corre voce, nei salotti meno prudenti, di un <i>tonico</i> venduto in boccetta col contagocce: due gocce sotto la lingua e, giurano gli estimatori, «i lampadari respirano e le tende raccontano barzellette». Sarebbe estratto da un fungo del Nord che i pastori conoscono da secoli e i dottori riscoprono ogni vent'anni.</p>
+        <p style="font-size:.82rem">La Loggia del Decoro ne ha già chiesto il sequestro — «allucinazione a domicilio». I gestori più sfrontati ribattono che, amaro come una medicina e servito col contagocce come una medicina, <i>è</i> una medicina. Un certo scantinato dall'insegna d'uccello, si mormora, ne tiene una scorta nel mobiletto buono «per le serate che se lo meritano».</p>
+
+        <h4 class="sub">Lettere al Direttore</h4>
+        <div class="letters">
+          <p><b>Egregio Direttore,</b> da quando hanno chiuso il caffè all'angolo mio marito è a casa ogni sera e ha imparato l'armonica. Intercedete Voi presso la Loggia, Vi prego. <i>— Una lettrice esasperata, Lombokstraat</i></p>
+          <p><b>Signor Direttore,</b> si dà la caccia a un bicchiere di vino mentre i borseggiatori del mercato prosperano indisturbati. Ma forse i borseggiatori non ballano. <i>— Un cittadino che paga le tasse</i></p>
+          <p><b>Direttore caro,</b> ho perso il gatto, l'impiego e la voglia di alzarmi. Del gatto, almeno, datemi notizia. <i>— Un lettore malinconico, Pijlsweerd</i></p>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="box dark">
+          <div class="kicker">Segnalemento — l'uomo che spegne le luci</div>
+          <p>Alto, dicono. O di statura media. Veste di scuro, o di un grigio così spento da parer nero. Voce «profonda come un pozzo» per alcuni, «sottile come uno spillo» per altri: forse perché scappano prima di sentirla due volte. Non beve, non ride, non balla: annota. Porta l'ombrello anche col sole e lo apre in casa d'altri. I testimoni ricordano tutto di lui tranne la faccia. Lo si riconosce dal silenzio: quando entra, l'orchestra sbaglia il tempo.</p>
+        </div>
+        <div class="box">
+          <div class="kicker">A teatro e nei cinematografi</div>
+          <p><b>Stadsschouwburg</b> — «La vedova allegra», ore 20.<br><b>Cinema Rembrandt</b> — pellicola muta con pianoforte, ore 19 e 21.<br><b>Sale da ballo</b> — chiuse fino a nuovo avviso.</p>
+        </div>
+        <div class="box">
+          <div class="kicker">Mercato di Vredenburg</div>
+          <p>Caffè: in forte rialzo. Ghiaccio: introvabile dopo le 22. Menta fresca: richiestissima, chissà perché.</p>
+        </div>
+        <div class="box dark">
+          <div class="kicker">Necrologio di un locale</div>
+          <p>Si è spento in settimana, dopo breve ispezione, il caffè <i>De Gouden Leeuw</i>, anni trentadue. Lascia nel dolore quaranta clienti e un pianoforte muto. Non fiori: portate una bottiglia altrove, finché potete.</p>
+        </div>
+        <div class="box">
+          <div class="kicker">Almanacco &amp; tempo</div>
+          <p>Sole al tramonto alle 19.42, luna crescente. Sereno con foschie serali sui canali; vento debole da nord-ovest. Alta marea del traffico verso le 22, deflusso improvviso a mezzanotte.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="puzzle">
+      <div class="kicker">L'angolo dei rebus — trova le sei differenze</div>
+      <p class="pz-cap">Il ritratto segnaletico del gatto «Jenever», tuttora latitante. Il nostro tipografo, distratto, ne ha composte due versioni.</p>
+      <div class="pz-grid">
+        <svg viewBox="0 0 170 165" class="sd" role="img" aria-label="Ritratto A">
+          <ellipse cx="85" cy="40" rx="36" ry="6"/>
+          <path d="M60 40 Q60 15 85 15 Q110 15 110 40"/>
+          <path d="M108 27 Q123 9 131 19 Q120 24 112 37"/>
+          <path d="M46 66 L40 36 L67 53 Z"/>
+          <path d="M124 66 L130 36 L103 53 Z"/>
+          <ellipse cx="85" cy="97" rx="46" ry="42"/>
+          <circle cx="68" cy="90" r="3.5" class="fill"/>
+          <circle cx="102" cy="90" r="3.5" class="fill"/>
+          <circle cx="68" cy="90" r="11" class="thin"/>
+          <line x1="68" y1="101" x2="61" y2="123" class="thin"/>
+          <path d="M80 104 L90 104 L85 111 Z" class="fill"/>
+          <path d="M85 111 Q85 118 76 120 M85 111 Q85 118 94 120"/>
+          <line x1="34" y1="97" x2="62" y2="101"/>
+          <line x1="32" y1="106" x2="62" y2="106"/>
+          <line x1="34" y1="115" x2="62" y2="111"/>
+          <line x1="136" y1="97" x2="108" y2="101"/>
+          <line x1="138" y1="106" x2="108" y2="106"/>
+          <line x1="136" y1="115" x2="108" y2="111"/>
+          <path d="M85 140 L66 132 L66 149 Z"/>
+          <path d="M85 140 L104 132 L104 149 Z"/>
+          <circle cx="85" cy="140" r="3.5"/>
+          <circle cx="75" cy="140" r="2" class="fill"/>
+          <circle cx="85" cy="152" r="4" class="thin"/>
+          <path d="M129 118 Q152 118 152 94 Q152 82 141 82" class="thin"/>
+        </svg>
+        <svg viewBox="0 0 170 165" class="sd" role="img" aria-label="Ritratto B">
+          <ellipse cx="85" cy="40" rx="36" ry="6"/>
+          <path d="M60 40 Q60 15 85 15 Q110 15 110 40"/>
+          <path d="M46 66 L40 36 L67 53 Z"/>
+          <path d="M124 66 L130 36 L103 53 Z"/>
+          <ellipse cx="85" cy="97" rx="46" ry="42"/>
+          <circle cx="68" cy="90" r="3.5" class="fill"/>
+          <circle cx="102" cy="90" r="3.5" class="fill"/>
+          <circle cx="102" cy="90" r="11" class="thin"/>
+          <line x1="102" y1="101" x2="109" y2="123" class="thin"/>
+          <path d="M80 104 L90 104 L85 111 Z" class="fill"/>
+          <path d="M85 111 Q85 118 76 120 M85 111 Q85 118 94 120"/>
+          <line x1="34" y1="99" x2="62" y2="102"/>
+          <line x1="34" y1="112" x2="62" y2="109"/>
+          <line x1="136" y1="97" x2="108" y2="101"/>
+          <line x1="138" y1="106" x2="108" y2="106"/>
+          <line x1="136" y1="115" x2="108" y2="111"/>
+          <path d="M85 140 L66 132 L66 149 Z"/>
+          <path d="M85 140 L104 132 L104 149 Z"/>
+          <circle cx="85" cy="140" r="3.5"/>
+          <path d="M129 128 Q150 133 153 156" class="thin"/>
+        </svg>
+      </div>
+      <div class="pz-lab"><span>Ritratto A</span><span>Ritratto B</span></div>
+      <p class="pz-sol">Soluzioni: piuma sul cappello (solo A) · monocolo sull'occhio sinistro in A, destro in B · un baffo in meno a sinistra in B · pallino sul farfallino (solo A) · campanello al collo (solo A) · coda all'insù in A, giù in B.</p>
+    </div>
+
+    <div class="colophon">
+      <div class="orn">❧ ✦ ❧</div>
+      <div class="foot">De Utrechtsche Bode, si vende all'angolo, si legge di nascosto. Conservare fino a mezzanotte.</div>
+    </div>
+    <div class="pageno">De Utrechtsche Bode · pagina 2 di 2 · conservare fino a mezzanotte</div>
   </div>
 
-  <div class="band" style="border-top:0">
-    <div class="b"><b>Arrestati per un valzer</b>Due giovani fermati sull'Oudegracht «per ballo non autorizzato». Rilasciati con ammonizione e multa.</div>
-    <div class="b"><b>Smarrito</b>Cagnolino bianco risponde al nome di «Jenever». Ricompensa. Rivolgersi alla locanda presso Janskerkhof.</div>
-    <div class="b"><b>Calcio</b>Il club cittadino s'impone per due a uno; il pubblico esulta, sottovoce, per non essere multato.</div>
-    <div class="b"><b>La ricetta della nonna</b>Zuppa di piselli e coraggio: bollire a lungo, servire senza far rumore con il cucchiaio.</div>
-  </div>
-
-  <div class="orn">❧ ✦ ❧</div>
-  <div class="foot">De Utrechtsche Bode, si vende all'angolo, si legge di nascosto. Conservare fino a mezzanotte.</div>
 </div>
 </body>
 </html>
@@ -537,6 +719,9 @@ iframe.gaz{width:100%;height:1180px;border:1px solid var(--paper-edge);backgroun
 <script>
 (function(){
   const norm=s=>s.toLowerCase().trim().replace(/\s+/g,' ');
+
+  const invite=document.getElementById('invite');
+  document.getElementById('inviteEnter').onclick=function(){ invite.hidden=true; };
 
   function reveal(){
     const c=norm(document.getElementById('code').value);
@@ -549,13 +734,33 @@ iframe.gaz{width:100%;height:1180px;border:1px solid var(--paper-edge);backgroun
   document.getElementById('reveal').onclick=reveal;
   document.getElementById('code').addEventListener('keydown',e=>{if(e.key==='Enter')reveal();});
 
+  const GAZ_HTML=document.getElementById('gazsrc').textContent;
+  const gazSlot=document.getElementById('gazslot');
+  const gazFull=document.getElementById('gazfull');
+  function fitGaz(f){
+    try{ const h=f.contentWindow.document.documentElement.scrollHeight; if(h) f.style.height=h+'px'; }
+    catch(e){ if(!f.dataset.msg) f.style.height='2400px'; }
+  }
+  window.addEventListener('message',function(e){
+    if(!e.data||!e.data.gazHeight) return;
+    const f=gazSlot.querySelector('iframe.gaz');
+    if(f){ f.dataset.msg='1'; f.style.height=e.data.gazHeight+'px'; }
+  });
   document.getElementById('gazbtn').onclick=function(){
-    const slot=document.getElementById('gazslot');
-    if(slot.dataset.open){ slot.innerHTML=''; slot.dataset.open=''; this.textContent='Apri la Gazzetta'; return; }
-    const f=document.createElement('iframe'); f.className='gaz';
-    f.srcdoc=document.getElementById('gazsrc').textContent; slot.appendChild(f);
-    slot.dataset.open='1'; this.textContent='Chiudi la Gazzetta';
+    if(gazSlot.dataset.open){
+      gazSlot.innerHTML=''; gazSlot.dataset.open=''; this.textContent='Apri la Gazzetta'; gazFull.hidden=true; return;
+    }
+    const f=document.createElement('iframe'); f.className='gaz'; f.title='La Gazzetta di Utrecht';
+    f.srcdoc=GAZ_HTML;
+    f.onload=function(){ fitGaz(f); setTimeout(()=>fitGaz(f),500); setTimeout(()=>fitGaz(f),1500); };
+    gazSlot.appendChild(f); gazSlot.dataset.open='1';
+    this.textContent='Chiudi la Gazzetta'; gazFull.hidden=false;
   };
+  gazFull.onclick=function(){
+    const w=window.open('','_blank');
+    if(w){ w.document.open(); w.document.write(GAZ_HTML); w.document.close(); }
+  };
+  window.addEventListener('resize',()=>{ const f=gazSlot.querySelector('iframe.gaz'); if(f) fitGaz(f); });
 })();
 </script>
 </body></html>
